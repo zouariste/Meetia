@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+     <div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;"> Meetings </span></li>
+                <li class="breadcrumb-item"><span style="color:white;"> List of Meetings</span></li>
+            </ol>
+        </div>
+
+    </div>
+<div class="container"  >
+  <div class="jumbotron"  >
+
+ <div align="center" class="row">
+
+      {% for m in meetings %}
+
+          <div  class="col-lg-3 col-md-4 col-sm-12  mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="card-title">Meeting {{ m.id }}</h3>
+
+                  <p><strong><i class="far fa-calendar-alt"></i></strong> {{ m.date }}</p>
+                    <p><strong><i class="far fa-clock"></i> </strong> {{m.time}}</p>
+                  <p><strong><i class="fas fa-map-marker-alt"></i></strong> {{m.place}}</p>
+                    {% if request.user.isCollaborateur %}
+                         <a href="{% url 'Reunion:detail_meeting' m.id %}"><i class="fas fa-info-circle"></i> details </a>
+
+                    {% elif request.user.isRapporteur %}
+                         <a href="{% url 'Reunion:detail_meeting_rapporteur' m.id %}"><i class="fas fa-info-circle"></i> details </a>
+                    {% endif %}
+                      </div></div> </div>
+      {% endfor %}
+
+ </div>
+
+  </div>
+<div class=" center" align="center"  >
+
+    <span class="step-links" >
+        {% if meetings.has_previous %}
+            <a href="?page={{ meetings.previous_page_number }}">   <button type="button" class="btn btn-success btn-sm">previous</button></a>
+            {% else %}
+              <button type="button" class="btn btn-success btn-sm disabled">previous</button>
+        {% endif %}
+
+        <span class="current">
+            Page {{ meetings.number }} of {{ meetings.paginator.num_pages }}
+        </span>
+
+        {% if meetings.has_next %}
+         <a href="?page={{ meetings.next_page_number }}">   <button type="button" class="btn btn-success btn-sm">next</button></a>
+{% else %}
+             <button type="button" class="btn btn-success btn-sm disabled">next</button>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock %}

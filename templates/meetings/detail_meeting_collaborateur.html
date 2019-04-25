@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block body_block %}
+
+         <div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;"> Meetings </span></li>
+                <li class="breadcrumb-item"><span style="color:white;"> Meeting</span></li>
+            </ol>
+        </div>
+
+    </div>
+<div class="container">
+  <div class="jumbotron">
+<h1>Meeting {{ meeting.id}} Informations</h1>
+   <div class="form-group " align="right">
+ <div class="col-sm-offset-2 col-sm-10">
+
+                    {% if meeting.hasPV and meeting.pv.soumis %}
+                           <a class="navbar-link" href="{{ meeting.pv.file.url }}"><button  class="btn btn-danger"><i class="far fa-file-pdf"></i>Consult PDF</button></a>
+                 {% endif %}
+ </div>
+   </div>
+
+  <br>
+  <div class="row">
+      <div class="col-3"><h3><i class="far fa-calendar-alt"></i></h3></div>
+
+      <div class="col-3"> <h3><i class="far fa-clock"></i></h3></div>
+      <div class="col-3"><h3><i class="fas fa-map-marker-alt"></i></h3></div>
+      <div class="col-3"><h3><i class="fas fa-feather"></i></h3></div>
+ </div>
+   <div class="row">
+      <div class="col-3"><h5>  {{meeting.date}}</h5></div>
+
+      <div class="col-3"> <h5>{{meeting.time}}</h5></div>
+      <div class="col-3"><h5>{{meeting.place}}</h5></div>
+      <div class="col-3"><h5><img  src="/media/{{ meeting.rapporteur.user.avatar }}"  alt="picture" style="width:50px;">
+    {{meeting.rapporteur.first_name}} {{meeting.rapporteur.last_name}}</h5></div>
+ </div>
+<br><br>
+   <hr style="width: 100%; color: black; height: 2px; background-color:black;">
+      <h4>Collaborators</h4>
+  <br>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+        <th scope="col">Email</th>
+<th scope="col">Confirmation</th>
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for invitation in all_invitations %}
+
+           <tr>
+      <td><img class="rounded-circle"  src="/media/{{ invitation.collaborateur.user.avatar }}"  alt="picture" style="width:50px;"></td>
+      <td>{{invitation.collaborateur.first_name}}</td>
+      <td>{{invitation.collaborateur.last_name}}</td>
+      <td>{{invitation.collaborateur.email}}</td>
+           {% if invitation.confirmation == "P" %}
+                   <td><h3><i class="far fa-thumbs-up text-success"></i></h3></td>
+                   {% elif  invitation.confirmation == "A" %}
+               <td><h3><i class="fas fa-times text-danger "></i></h3></td>
+               {% else %}
+                   <td></td>
+               {% endif %}
+    </tr>
+
+
+      {% endfor %}
+
+  </tbody>
+</table>
+
+<br><br>
+   <hr style="width: 100%; color: black; height: 2px; background-color:black;">
+    <h3>Points</h3>
+
+       <table>
+       <tr>
+           <td>Order</td>
+           <td>Title</td>
+           <td>Explication</td>
+
+       </tr>
+      {% for point in points  %}
+          <tr>
+              <td><strong>{{point.ordre}}</strong></td>
+             <td><strong>{{point.titre}}</strong></td>
+              <td>{{point.explication}}</td>
+              </tr>
+      {% endfor %}
+     </table>
+
+
+  </div>
+</div>
+{% endblock %}

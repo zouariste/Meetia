@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+     <div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;"> PVs </span></li>
+                <li class="breadcrumb-item"><span style="color:white;"> List of PVs</span></li>
+            </ol>
+        </div>
+
+    </div>
+<div class="container"  >
+  <div class="jumbotron"  >
+
+ <div align="center" class="row">
+
+      {% for pv in pvs %}
+
+          <div  class="col-lg-3 col-md-4 col-sm-12  mb-4">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h3 class="card-title">PV of Meeting {{ pv.reunion.id }}</h3>
+                    {% if pv.soumis %}
+                     <p><i class="far fa-paper-plane"  style="font-size: 36px;color: green;" ></i></p>
+                    {% endif %}
+                     <p><a class="navbar-link" href="{{ pv.file.url }}"><button  class="btn btn-danger btn-sm"><i class="far fa-file-pdf"></i>Consult PDF</button></a>
+   </p>
+                {% if request.user.isDirigeant %}
+                    <p><a href="{% url 'Reunion:detail_meeting' pv.reunion.id %}"><i class="fas fa-info-circle"></i> details </a>
+              </p>
+                {% elif request.user.isRapporteur %}
+                     <p><a href="{% url 'Reunion:detail_meeting_rapporteur' pv.reunion.id %}"><i class="fas fa-info-circle"></i> details </a>
+              </p>
+                {% endif %}
+                </div></div> </div>
+      {% endfor %}
+
+ </div>
+
+  </div>
+<div class=" center" align="center"  >
+
+    <span class="step-links" >
+        {% if pvs.has_previous %}
+            <a href="?page={{ pvs.previous_page_number }}">   <button type="button" class="btn btn-success btn-sm">previous</button></a>
+            {% else %}
+              <button type="button" class="btn btn-success btn-sm disabled">previous</button>
+        {% endif %}
+
+        <span class="current">
+            Page {{ pvs.number }} of {{ pvs.paginator.num_pages }}
+        </span>
+
+        {% if pvs.has_next %}
+         <a href="?page={{ pvs.next_page_number }}">   <button type="button" class="btn btn-success btn-sm">next</button></a>
+{% else %}
+             <button type="button" class="btn btn-success btn-sm disabled">next</button>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock %}

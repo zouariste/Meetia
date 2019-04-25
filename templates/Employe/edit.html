@@ -1,0 +1,52 @@
+
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+
+{% block style %}
+
+  <link href={% static 'css/Profile-Edit-Form-1.css' %} rel="stylesheet">
+<link href={% static 'css/Profile-Edit-Form.css' %} rel="stylesheet">
+
+    {% endblock %}
+{% block body_block %}
+<div class="container">
+<div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;">Profile </span></li>
+                <li class="breadcrumb-item"><span style="color:white;">Edit Profile</span></li>
+            </ol>
+        </div>
+
+    </div>
+  <div class="jumbotron">
+
+<h4>Edit Profile</h4>
+
+   <form class="form-horizontal" action="" method="post" enctype="multipart/form-data" >
+
+            {% csrf_token %}
+            {% include 'meetings/form-template.html' %}
+
+           <div class="form-group " align="right">
+                <div class="col-sm-offset-2 col-sm-10">
+                       <button type="reset" class="btn btn-danger">Reset</button>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+  </div>
+
+
+  </div>
+</div>
+    {% block script %}
+
+        <script src={% static 'js/Profile-Edit-Form.js' %} type="text/javascript"></script>
+
+
+    {% endblock %}
+{% endblock %}

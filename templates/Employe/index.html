@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block style %}
+
+  <link href={% static 'css/Profile-Edit-Form-1.css' %} rel="stylesheet">
+<link href={% static 'css/Profile-Edit-Form.css' %} rel="stylesheet">
+<style>
+.Avatar {
+  border-radius: 50%;
+}
+</style>
+    {% endblock %}
+
+
+
+{% block body_block %}
+
+
+{% if user.is_authenticated %}
+
+    <div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;"></i> Profile </span></li>
+                <li class="breadcrumb-item"><span style="color:white;">  Profile Details</span></li>
+            </ol>
+        </div>
+
+    </div>
+ <div class="container">
+
+    <div class="jumbotron"  >
+
+
+          <h4>
+                                  <strong class="text-danger">Welcome</strong>  {{ user.first_name }}  {{ user.last_name }}
+                                    </h4>
+        <div align="right">
+            <a class="navbar-link"  href="{% url 'Employe:edit_profile' %}"><button class="btn btn-sm"><i class="far fa-edit"  style="font-size: 36px;color: green;" ></i>Edit</button></a>
+            <a class="navbar-link"  href="{% url 'Employe:change_password' %}"><button class="btn btn-sm"><i class="fas fa-key"  style="font-size: 36px;color: green;" ></i>Change Password</button></a>
+
+
+        </div>
+
+          <div class="row">
+
+
+                    <div class="col-md-4">
+
+                        <div class="profile-img">
+                          <img src="/media/{{ user.avatar }}" class="rounded" alt="Your picture" style="max-height: 200px;max-width: 200px;">
+
+
+                        </div>
+                    </div>
+                   <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+
+                        <div class="row">
+
+
+                             <div class="col-12 lead">
+
+     <h3 class="only-bottom-margin"> </h3>
+         <span class="text-muted">Email:</span> {{ user.email }}<br>
+                                        <span class="text-muted">Phone:</span> {{ user.phone }}<br>
+                                   <span class="text-muted">Post:</span> {{ user.poste }}<br>
+                                 <span class="text-muted">Sexe:</span> {{ user.sexe }}<br>
+                                 <span class="text-muted">Date Joined:</span> {{ user.date_joined}}<br>
+                                    <span class="text-muted">Phone:</span> {{ user.phone}}<br>
+
+                                 {% if user.is_staff %}
+                                     <span class="text-muted">Admin:</span><i class="far fa-check-circle text-success " style="font-size: 24px;" ></i> <br>
+                                     {% else %}
+                                       <span class="text-muted">Admin:</span><i class="far fa-times-circle text-danger " style="font-size: 24px;" ></i> <br>
+
+                                     {%  endif%}
+
+
+                                </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+          </div>
+
+        </div>
+        </div>
+    {% else %}
+        <div class="jumbotron"  >
+
+
+          <h4>
+                                  <strong>Welcome</strong>  to semi Automatic Generator
+                                    </h4>
+  <div align="right">
+            <a class="navbar-link"  href="{% url 'Employe:user_login' %}"><button class="btn btn-sm btn-success">Log in</button></a>
+
+
+        </div>
+
+
+
+
+
+        </div>
+    {% endif %}
+
+
+
+            {% block script %}
+
+          <script src={% static 'js/Profile-Edit-Form.js' %} type="text/javascript"></script>
+
+            {% endblock %}
+{% endblock %}
+

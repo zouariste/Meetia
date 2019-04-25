@@ -1,0 +1,110 @@
+
+
+{% extends "base.html" %}
+{% block body_block %}
+     <div class="row padMar col-sm-12 col-md-12 col-lg-12col-xl-12 mx-auto">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 padMar d-none d-sm-block d-md-block d-lg-block d-xl-block" style="max-width: 100%;">
+            <ol class="breadcrumb info-color" style="margin-top: 10px;max-width: 100%;">
+                <li class="breadcrumb-item active"><span style="color: white;">Meeting </span></li>
+                <li class="breadcrumb-item"><span style="color:white;"> PV</span></li>
+            </ol>
+        </div>
+
+    </div>
+<div class="container">
+  <div class="jumbotron">
+
+    <h1> PV Meeting</h1>
+  {% if meeting.hasPV %}
+  <div class="form-group " align="right">
+
+                <div class="col-sm-offset-2 col-sm-10">
+                <a class="navbar-link" href="{{ meeting.pv.file.url }}"><button  class="btn btn-success"><i class="far fa-file-pdf"></i>Download PV</button></a>
+
+                </div>
+            </div>
+  {% else %}
+<div class="form-group " align="right">
+
+                <div class="col-sm-offset-2 col-sm-10">
+                <a class="navbar-link" href="{% url 'Reunion:create_pdf'  meeting.id %}"><button  class="btn btn-success"><i class="far fa-file-alt"></i> Create PV</button></a>
+
+                </div>
+            </div>
+  {% endif %}
+
+  <br>
+   <hr style="width: 100%; color: black; height: 2px; background-color:black;">
+<h4>Meeting Informations</h4>
+  <br>
+  <div class="row">
+      <div class="col-3"><h3><i class="far fa-calendar-alt"></i></h3></div>
+
+      <div class="col-3"> <h3><i class="far fa-clock"></i></h3></div>
+      <div class="col-3"><h3><i class="fas fa-map-marker-alt"></i></h3></div>
+      <div class="col-3"><h3><i class="fas fa-feather"></i></h3></div>
+ </div>
+   <div class="row">
+      <div class="col-3"><h5>  {{meeting.date}}</h5></div>
+
+      <div class="col-3"> <h5>{{meeting.time}}</h5></div>
+      <div class="col-3"><h5>{{meeting.place}}</h5></div>
+      <div class="col-3"><h5><img  src="/media/{{ meeting.rapporteur.user.avatar }}"  alt="picture" style="width:50px;">
+    {{meeting.rapporteur.first_name}} {{meeting.rapporteur.last_name}}</h5></div>
+ </div>
+<br><br>
+   <hr style="width: 100%; color: black; height: 2px; background-color:black;">
+      <h4>Collaborators</h4>
+  <br>
+
+<table class="table table-striped ">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+        <th scope="col">Present</th>
+
+    </tr>
+  </thead>
+  <tbody>
+
+      {% for invitation in invitations %}
+
+           <tr>
+      <td><img class="rounded-circle"  src="/media/{{ invitation.collaborateur.user.avatar }}"  alt="picture" style="width:50px;"></td>
+      <td>{{invitation.collaborateur.first_name}}</td>
+      <td>{{invitation.collaborateur.last_name}}</td>
+
+           {% if invitation.confirmation == "P" %}
+                   <td><h3><i class="far fa-thumbs-up text-success"></i></h3></td>
+                   {% elif  invitation.confirmation == "A" %}
+               <td><h3><i class="fas fa-times text-danger "></i></h3></td>
+               {% else %}
+                   <td></td>
+               {% endif %}
+    </tr>
+
+
+      {% endfor %}
+
+  </tbody>
+</table>
+
+<br><br>
+   <hr style="width: 100%; color: black; height: 2px; background-color:black;">
+    <h3>Meeting Resume</h3>
+
+
+<ol>
+      {% for point in points  %}
+        <li>
+            <h4>{{point.titre}} </h4> <a class="navbar-link" href=""><button  class="btn"><i class="fas fa-edit"></i></button></a>
+</li>
+      <p>{{ point.resume }}</p>
+      {% endfor %}
+</ol>
+
+  </div>
+</div>
+{% endblock %}

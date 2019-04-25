@@ -1,0 +1,172 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Semi Automatic Generator</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <!-- Bootstrap core CSS -->
+  <link href={% static 'css/bootstrap.min.css' %} rel="stylesheet">
+     <link href={% static 'css/mdb.min.css' %} rel="stylesheet">
+  <link href={% static 'css/style.css' %} rel="stylesheet">
+
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+       {% block style %}
+       {% endblock %}
+</head>
+  <body>
+  {% if user.is_authenticated  %}
+      {% if user.isDirigeant %}
+          <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_meetings' %}">Meetings</a>
+              <a class="dropdown-item" href="{% url 'Reunion:add_meeting' %}">Add Meeting</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_invitations' %}">Invitations</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_pvs' %}">PVs</a>
+
+          </div>
+      {% elif user.isRapporteur %}
+           <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_meetings' %}">Meetings</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_pvs' %}">PVs</a>
+          </div>
+      {% else %}
+           <div id="mySidenav" class="sidenav">
+              <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_meetings' %}">Meetings</a>
+              <a class="dropdown-item" href="{% url 'Reunion:all_invitations' %}">Invitations</a>
+              <a class="dropdown-item" href="#">PVs</a>
+          </div>
+      {% endif %}
+
+
+{% endif %}
+
+
+<nav class="mb-1 navbar navbar-expand-lg navbar-dark info-color">
+    <a class="navbar-brand" href="{% url 'Reunion:all_meetings' %}">Semi Automatic Generator</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-user"></i> Profile </a>
+        <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+          <a class="dropdown-item" href="{% url 'admin:index' %}">Admin</a>
+  {% if user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'index' %}">Profile</a>
+                 <a class="dropdown-item" href="{% url 'Employe:edit_profile' %}">Edit Profile</a>
+             <a class="dropdown-item" href="{% url 'Employe:change_password' %}">Change Password</a>
+             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+
+          {% else %}
+
+
+            <a class="dropdown-item" href="{% url 'Employe:user_login' %}">Login</a>
+          {% endif %}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+{% if user.is_authenticated %}
+<div id="main">
+
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+</div>
+{% endif %}
+
+    <div class="container">
+
+    {% block body_block %}
+    {% endblock %}
+
+    </div>
+
+
+
+
+
+
+  <script type="text/javascript" src={% static 'js/jquery-3.3.1.min.js' %}></script>
+<script type="text/javascript" src={% static 'js/popper.min.js' %}></script>
+ <script type="text/javascript" src={% static 'js/bootstrap.min.js' %}></script>
+<script type="text/javascript" src={% static 'js/mdb.min.js' %}></script>
+  <script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+  {% block script %}
+
+
+{% endblock %}
+  </body>
+</html>
