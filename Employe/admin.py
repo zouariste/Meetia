@@ -31,8 +31,6 @@ class EmployeAdmin(admin.ModelAdmin):
     model = Employe
     list_display = ('email','first_name','last_name','phone','sexe','avatar','poste','is_active',)
 
-
-
 admin.site.register(User, UserAdmin)
 admin.site.register(Rapporteur,EmployeAdmin)
 admin.site.register(Collaborateur,EmployeAdmin)

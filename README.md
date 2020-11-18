@@ -1,1 +1,3 @@
-# pfa2
+# Academic project
+
+Meetings minutes generation system
