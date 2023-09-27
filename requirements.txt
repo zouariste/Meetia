@@ -1,0 +1,7 @@
+mysqlclient
+django
+django-widget-tweaks
+setuptools<58.0.0
+django-celery
+django-audiofield
+django-cleanup

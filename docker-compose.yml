@@ -1,0 +1,14 @@
+version: '3'
+services:
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: f82ldKX7591b
+      MYSQL_DATABASE: meetia
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: v3oS9c83rZmD
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
