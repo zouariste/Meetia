@@ -1,7 +1,7 @@
 from audiofield.fields import AudioField
 import speech_recognition as sr
 import os
-from pfa2.settings import BASE_DIR, STATIC_DIR
+from meetia.settings import BASE_DIR, STATIC_DIR
 import requests
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from gensim.summarization import summarize, keywords
@@ -149,7 +149,7 @@ CONTRACTION_MAP = {
 "you've": "you have"
 }
 
-from pfa2.settings import MEDIA_DIR
+from meetia.settings import MEDIA_DIR
 
 
 
@@ -422,7 +422,6 @@ def html2pdf(meeting,invitations,points):
     file = HTML2PDF()
     file.add_page()
     file.write_html(html)
-    print("sssssssssssssssssssssssssssssssssssssssssssssssssssssss")
     return file.output(MEDIA_DIR+"/pv/meeting{0}.pdf".format(meeting.id))
 
 

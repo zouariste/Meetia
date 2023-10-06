@@ -327,7 +327,6 @@ def create_pv(request,meeting_id):
         points = meeting.points.all().filter(hasChanged=True).order_by('ordre')
         if(meeting.hasPV):
             meeting.pv.delete()
-            print("dddddddddddddddddddddddddddddddddddddd")
             meeting.save()
         n=len(points)
         print("nombre des points qui sont changes={0}".format(n))
@@ -362,7 +361,6 @@ def pdfCreate(request,meeting_id):
         pv=PV.objects.create(reunion=reunion)
         html2pdf(reunion,invitations,points)
         pv.file.name='pv/meeting{0}.pdf'.format(reunion.id)
-        print("pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp")
         print (pv.file.path)
         pv.save()
     return HttpResponseRedirect('/meeting/edit/' + str(meeting_id) + '/')

@@ -22,16 +22,19 @@ python3.6 -m venv myenv
 source myenv/bin/activate
 
 # Replace 'HOST' with '<db_ipaddress>' in settings.py
-sed -i "s/'HOST': '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+',/'HOST': '<db_ipaddress>',/g" pfa2/settings.py
+sed -i "s/'HOST': '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+',/'HOST': '<db_ipaddress>',/g" meetia/settings.py
 
 # Start Docker Compose
 docker-compose up -d
 
 # Replace '<db_ipaddress>' with the actual IP address
-sed -i "s/<db_ipaddress>/$(docker inspect meetiadb --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')/g" pfa2/settings.py
+sed -i "s/<db_ipaddress>/$(docker inspect meetiadb --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')/g" meetia/settings.py
 
 # Install pkg-config
-sudo apt install pkg-config
+sudo apt install pkg-config 
+
+# Install audio libs
+sudo apt-get install libpulse-dev libasound2-dev
 
 # Set MYSQLCLIENT_CFLAGS and MYSQLCLIENT_LDFLAGS environment variables
 export MYSQLCLIENT_CFLAGS=`pkg-config mysqlclient --cflags`
@@ -46,6 +49,7 @@ sudo apt install libjpeg-dev zlib1g-dev
 # Download NLTK data
 python3.6 -m nltk.downloader omw-1.4
 python3.6 -m nltk.downloader stopwords
+python3.6 -m nltk.downloader punkt
 
 # Install Python package requirements
 pip3 install -r requirements.txt
