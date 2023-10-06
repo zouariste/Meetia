@@ -36,21 +36,37 @@ pypi.org/project/virtualenv/) (recommended)
 - [Python](https://www.python.org/downloads/) (version X.X.X)
 
 !!!
-mysql-client:
-    brew install mysql-client
-
-export MYSQLCLIENT_CFLAGS="-I/opt/homebrew/opt/mysql-client/include"
-export MYSQLCLIENT_LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib -lmysqlclient"
-  echo 'export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"' >> ~/.zshrc
-  export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-
-
 docker-compose up -d
-export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
-export MYSQLCLIENT_CFLAGS="-I/opt/homebrew/opt/mysql-client/include"
-export MYSQLCLIENT_LDFLAGS="-L/opt/homebrew/opt/mysql-client/lib -lmysqlclient"
+docker inspect meetiadb --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'
+sudo apt install pkg-config
+export MYSQLCLIENT_CFLAGS=`pkg-config mysqlclient --cflags`
+export MYSQLCLIENT_LDFLAGS=`pkg-config mysqlclient --libs`
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt-get update
+sudo apt-get install python3.6
+sudo apt install python3.6-venv
+sudo apt-get install python3.6-dev
+python3.6 -m venv myenv
+source myenv/bin/activate
+pip3 install -r requirements.txt
+
+sudo apt install rustc cargo
+sudo apt install libjpeg-dev zlib1g-dev
+python3 -m nltk.downloader omw-1.4
+python3 -m nltk.downloader stopwords
 
 
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+
+Admin Dirigeant
+mzouari@outlook.com
+Collaborateur
+collaborateur@outlook.com
+Rapporteur
+rapporteur@outlook.com
 
 ### Installation
 
@@ -83,7 +99,7 @@ Install Dependencies:
 
 bash
 Copy code
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 Configure Environment Variables:
 
 Create a .env file in the project root and add your configuration variables. You can use a tool like python-decouple for managing environment variables.

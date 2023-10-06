@@ -18,7 +18,7 @@ from django.conf.urls import include,url
 from django.contrib import admin
 
 from django.conf import settings
-from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm
+from django.contrib.auth.views import *
 from django.views.static import serve
 from Employe import views
 

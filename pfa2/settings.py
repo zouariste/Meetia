@@ -84,10 +84,10 @@ WSGI_APPLICATION = 'pfa2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pfa2',
+        'NAME': 'meetia',
         'USER': 'root',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
+        'PASSWORD': 'f82ldKX7591b',
+        'HOST': '172.19.0.2',
         'PORT': '3306'
     }
 }

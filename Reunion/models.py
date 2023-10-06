@@ -5,9 +5,6 @@ from django.utils import timezone
 from django.db import models
 
 from Employe.models import Dirigeant, Collaborateur, Rapporteur
-from audiofield.fields import AudioField
-import os
-from pfa2 import settings
 
 
 class Reunion(models.Model):
@@ -15,8 +12,8 @@ class Reunion(models.Model):
     time = models.TimeField()
     place = models.CharField(max_length=100)
     soumise = models.BooleanField(default=False)
-    dirigeant = models.ForeignKey(Dirigeant)
-    rapporteur = models.ForeignKey(Rapporteur)
+    dirigeant = models.ForeignKey(Dirigeant, on_delete=models.CASCADE)
+    rapporteur = models.ForeignKey(Rapporteur, on_delete=models.CASCADE)
 
     @property
     def hasPV(self):

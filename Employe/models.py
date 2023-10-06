@@ -68,7 +68,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                 return True
             return False
 class Employe(models.Model):
-    user = models.OneToOneField(User, null=True, related_name='%(app_label)s_%(class)s_related')
+    user = models.OneToOneField(User, null=True, related_name='%(app_label)s_%(class)s_related', on_delete=models.CASCADE)
 
     @property
     def email(self):
