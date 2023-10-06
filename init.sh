@@ -44,14 +44,14 @@ sudo apt install rustc cargo
 sudo apt install libjpeg-dev zlib1g-dev
 
 # Download NLTK data
-python3 -m nltk.downloader omw-1.4
-python3 -m nltk.downloader stopwords
+python3.6 -m nltk.downloader omw-1.4
+python3.6 -m nltk.downloader stopwords
 
 # Install Python package requirements
 pip3 install -r requirements.txt
 
 # Create database migrations
-python manage.py makemigrations
+python3.6 manage.py makemigrations
 
 # Apply database migrations
-python manage.py migrate
+python3.6 manage.py migrate

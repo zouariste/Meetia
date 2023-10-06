@@ -1,8 +1,8 @@
 # Meetia
 
 chmod 777 init.sh
-python manage.py createsuperuser
-python manage.py runserver
+python3 manage.py createsuperuser
+python3 manage.py runserver
 
 Admin Dirigeant
 mzouari@outlook.com
