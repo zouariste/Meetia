@@ -13,6 +13,9 @@ RUN apt-get update && \
         python3.6 \
         python3.6-venv \
         python3.6-dev \
+        python3-dev \
+        default-libmysqlclient-dev \
+        build-essential \
         pkg-config \
         libpulse-dev \
         libasound2-dev \
@@ -30,25 +33,10 @@ WORKDIR /app
 COPY . /app/
 
 # Create a Python virtual environment and activate it
-RUN python3.6 -m venv myenv && \
-    source myenv/bin/activate && \
-    pip install --upgrade pip && \
-    pip install -r requirements.txt
-
-# Replace 'HOST' with '<db_ipaddress>' in settings.py
-RUN sed -i "s/'HOST': '[0-9]\+\.[0-9]\+\.[0-9]\+\.[0-9]\+',/'HOST': '<db_ipaddress>',/g" meetia/settings.py
-
-# Replace '<db_ipaddress>' with the actual IP address
-RUN sed -i "s/<db_ipaddress>/$(docker inspect meetiadb --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}')/g" meetia/settings.py
-
-# Create database migrations
-RUN python3.6 manage.py makemigrations
-
-# Apply database migrations
-RUN python3.6 manage.py migrate
+RUN python3.6 -m venv myenv
+RUN /bin/bash -c "source myenv/bin/activate && pip install nltk==3.6.7 && python3.6 -m nltk.downloader omw-1.4 && python3.6 -m nltk.downloader stopwords && python3.6 -m nltk.downloader punkt"
+RUN /bin/bash -c "source myenv/bin/activate && pip install --upgrade pip && pip install -r requirements.txt"
+RUN /bin/bash -c "source myenv/bin/activate && pip install gensim==3.8"
 
 # Expose the port that the Django app will run on
 EXPOSE 8000
-
-# Start the Django server
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

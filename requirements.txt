@@ -7,7 +7,6 @@ django-audiofield==0.10.1
 django-cleanup==8.0.0
 SpeechRecognition==3.9.0
 scikit-learn==0.24.2
-gensim==3.8.3
 dataclasses==0.8
 networkx==2.5.1
 nltk==3.6.7

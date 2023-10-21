@@ -10,3 +10,7 @@ Collaborateur
 collaborateur@outlook.com
 Rapporteur
 rapporteur@outlook.com
+
+docker build -t meetia-app .
+docker run -it meetia-app
+docker-compose up

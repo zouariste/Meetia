@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'meetia',
         'USER': 'root',
         'PASSWORD': 'f82ldKX7591b',
-        'HOST': '172.19.0.2',
+        'HOST': 'meetiadb',
         'PORT': '3306'
     }
 }
