@@ -2,7 +2,7 @@
 
 ## Project Description
 
-MeetIA is a platform designed for efficient and productive collaboration in modern workplaces. It simplifies meeting management, enhances communication, and automates transcription and summarization of meeting recordings. This tool is the key to boosting productivity and streamlining teamwork.
+MeetIA is a multi-container platform designed for efficient and productive collaboration in modern workplaces. It simplifies meeting management, enhances communication, and automates transcription and summarization of meeting recordings. This tool is the key to boosting productivity and streamlining teamwork.
 
 ## Key Features
 
