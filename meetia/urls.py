@@ -14,7 +14,7 @@ Including another URLconf
     2. Import the include() function: from django.conf.urls import url, include
     3. Add a URL to urlpatterns:  url(r'^blog/', include(blog_urls))
 """
-from django.conf.urls import include,url
+from django.conf.urls import include, url
 from django.contrib import admin
 
 from django.conf import settings
@@ -23,21 +23,28 @@ from django.views.static import serve
 from Employe import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
-    url(r'^special/', views.special, name='special'),
-    url(r'^Employe/', include('Employe.urls')),
-    url(r'^meeting/', include('Reunion.urls')),
-
-    url(r'^logout/$', views.user_logout, name='logout'),
-    url(r'^reset-password/$', password_reset, name='reset_password'),
-    url('^reset-password/done/$', password_reset_done, name='password_reset_done'),
-    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)$', password_reset_confirm, name='password_reset_confirm'),
+    url(r"^admin/", admin.site.urls),
+    url(r"^$", views.index, name="index"),
+    url(r"^special/", views.special, name="special"),
+    url(r"^Employe/", include("Employe.urls")),
+    url(r"^meeting/", include("Reunion.urls")),
+    url(r"^logout/$", views.user_logout, name="logout"),
+    url(r"^reset-password/$", password_reset, name="reset_password"),
+    url("^reset-password/done/$", password_reset_done, name="password_reset_done"),
+    url(
+        r"^reset-password/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)$",
+        password_reset_confirm,
+        name="password_reset_confirm",
+    ),
 ]
 
 if settings.DEBUG:
-    urlpatterns+=[
-        url(r'^media/(?P<path>.*)$',serve,
-            {'document_root':settings.MEDIA_ROOT,
-            }),
+    urlpatterns += [
+        url(
+            r"^media/(?P<path>.*)$",
+            serve,
+            {
+                "document_root": settings.MEDIA_ROOT,
+            },
+        ),
     ]
