@@ -12,6 +12,6 @@ networkx==2.5.1
 nltk==3.6.7
 pattern==3.6
 fpdf==1.7.2
-pillow==8.4.0
+pillow==10.2.0
 pocketsphinx==0.1.15
 swig==4.1.1
